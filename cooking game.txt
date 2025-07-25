@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡通厨房：西红柿炒鸡蛋</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Marker Felt', '楷体', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(to right, #ff6b6b, #ffa647);
+            padding: 25px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .kitchen-scene {
+            height: 300px;
+            background: linear-gradient(to bottom, #a8edea, #fed6e3);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 8px solid #d9b38c;
+        }
+        
+        /* 厨房装饰元素 */
+        .window {
+            position: absolute;
+            right: 50px;
+            top: 30px;
+            width: 180px;
+            height: 180px;
+            background: #87ceeb;
+            border: 8px solid #f0d9b5;
+            border-radius: 10px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .window-sill {
+            position: absolute;
+            right: 40px;
+            top: 210px;
+            width: 200px;
+            height: 20px;
+            background: #d9b38c;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .cabinet {
+            position: absolute;
+            left: 30px;
+            bottom: 0;
+            width: 250px;
+            height: 120px;
+            background: #ffd700;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .cabinet-door {
+            position: absolute;
+            bottom: 0;
+            width: 120px;
+            height: 100px;
+            background: #ffa500;
+            border: 3px solid #e69500;
+            border-radius: 5px;
+        }
+        
+        .cabinet-knob {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: 45px;
+        }
+        
+        .cabinet-door:first-child {
+            left: 10px;
+        }
+        
+        .cabinet-door:first-child .cabinet-knob {
+            right: 10px;
+        }
+        
+        .cabinet-door:last-child {
+            right: 10px;
+        }
+        
+        .cabinet-door:last-child .cabinet-knob {
+            left: 10px;
+        }
+        
+        /* 食材区域 */
+        .ingredients {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .ingredient {
+            width: 120px;
+            text-align: center;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .ingredient:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .ingredient:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        .ingredient:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+        
+        .ingredient-img {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #fff;
+        }
+        
+        .tomato {
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #d32f2f);
+        }
+        
+        .egg {
+            background: radial-gradient(circle at 30% 30%, #fff9c4, #ffeb3b);
+        }
+        
+        .oil {
+            background: radial-gradient(circle at 30% 30%, #fff9c4, #ffcc80);
+        }
+        
+        .salt {
+            background: radial-gradient(circle at 30% 30%, #f5f5f5, #e0e0e0);
+        }
+        
+        .ingredient i {
+            font-size: 50px;
+            color: white;
+        }
+        
+        /* 烹饪步骤 */
+        .steps {
+            padding: 30px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            background: #ffecb3;
+        }
+        
+        .step-number {
+            min-width: 60px;
+            height: 60px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 25px;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            font-size: 1.6rem;
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        
+        .step-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #5d4037;
+        }
+        
+        .step-image {
+            width: 120px;
+            height: 120px;
+            margin-left: 20px;
+            background: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .step-image i {
+            font-size: 60px;
+            color: #ff9800;
+        }
+        
+        /* 动画效果 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes cooking {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .cooking-pan {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 150px;
+            background: #795548;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: cooking 2s ease-in-out infinite;
+        }
+        
+        .pan-handle {
+            position: absolute;
+            left: 150px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 20px;
+            background: #5d4037;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .food {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #ffeb3b 30%, #ff6b6b 70%);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: bubble 2s ease-in-out infinite;
+        }
+        
+        .bubble:nth-child(1) {
+            width: 15px;
+            height: 15px;
+            top: 20px;
+            left: 30px;
+            animation-delay: 0s;
+        }
+        
+        .bubble:nth-child(2) {
+            width: 10px;
+            height: 10px;
+            top: 50px;
+            left: 80px;
+            animation-delay: 0.5s;
+        }
+        
+        .bubble:nth-child(3) {
+            width: 8px;
+            height: 8px;
+            top: 80px;
+            left: 40px;
+            animation-delay: 1s;
+        }
+        
+        @keyframes bubble {
+            0%, 100% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(-20px); opacity: 0.9; }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #ff9800;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .tip {
+            background: #e1f5fe;
+            padding: 20px;
+            margin: 20px 30px;
+            border-radius: 15px;
+            border-left: 5px solid #29b6f6;
+        }
+        
+        .tip h3 {
+            color: #0288d1;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .step-image {
+                margin: 20px 0 0;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍅 西红柿炒鸡蛋 🥚</h1>
+            <div class="subtitle">一起来学习制作这道经典又美味的家常菜吧！</div>
+        </header>
+        
+        <div class="kitchen-scene">
+            <div class="window"></div>
+            <div class="window-sill"></div>
+            <div class="cabinet">
+                <div class="cabinet-door">
+                    <div class="cabinet-knob"></div>
+                </div>
+                <div class="cabinet-door">
+                    <div class="cabinet-knob"></div>
+                </div>
+            </div>
+            
+            <div class="cooking-pan">
+                <div class="pan-handle"></div>
+                <div class="food">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ingredients">
+            <div class="ingredient">
+                <div class="ingredient-img tomato">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3>西红柿</h3>
+                <p>2个</p>
+            </div>
+            
+            <div class="ingredient">
+                <div class="ingredient-img egg">
+                    <i class="fas fa-egg"></i>
+                </div>
+                <h3>鸡蛋</h3>
+                <p>3个</p>
+            </div>
+            
+            <div class="ingredient">
+                <div class="ingredient-img oil">
+                    <i class="fas fa-oil-can"></i>
+                </div>
+                <h3>食用油</h3>
+                <p>适量</p>
+            </div>
+            
+            <div class="ingredient">
+                <div class="ingredient-img salt">
+                    <i class="fas fa-mortar-pestle"></i>
+                </div>
+                <h3>盐</h3>
+                <p>适量</p>
+            </div>
+        </div>
+        
+        <div class="tip">
+            <h3>👩‍🍳 小贴士</h3>
+            <p>选择熟透的西红柿味道更鲜美！打蛋时加少许水可以让鸡蛋更嫩滑哦～</p>
+        </div>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>准备食材</h3>
+                    <p>将西红柿洗净切成小块，鸡蛋打入碗中搅拌均匀，加少许盐调味。</p>
+                </div>
+                <div class="step-image">
+                    <i class="fas fa-utensils"></i>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>炒鸡蛋</h3>
+                    <p>热锅凉油，油温升高后倒入蛋液，待蛋液凝固时用铲子划散，盛出备用。</p>
+                </div>
+                <div class="step-image">
+                    <i class="fas fa-fire"></i>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>炒西红柿</h3>
+                    <p>锅中再加少许油，放入西红柿块翻炒，加少量盐帮助西红柿出汁。</p>
+                </div>
+                <div class="step-image">
+                    <i class="fas fa-blender"></i>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>混合翻炒</h3>
+                    <p>西红柿炒软出汁后，加入之前炒好的鸡蛋，快速翻炒均匀。</p>
+                </div>
+                <div class="step-image">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>出锅装盘</h3>
+                    <p>尝味调整咸淡，撒上葱花（可选），关火盛出，享受美味！</p>
+                </div>
+                <div class="step-image">
+                    <i class="fas fa-utensil-spoon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🍳 快乐烹饪 · 美味生活 🍅 | 卡通厨房 © 2023</p>
+        </footer>
+    </div>
+    <script>
+        // 添加简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            steps.forEach((step, index) => {
+                // 添加延迟动画效果
+                step.style.animationDelay = `${index * 0.2}s`;
+                
+                // 点击步骤时显示提示
+                step.addEventListener('click', function() {
+                    const stepNum = index + 1;
+                    alert(`开始第${stepNum}步：${this.querySelector('h3').textContent}`);
+                });
+            });
+            
+            // 食材悬停效果
+            const ingredients = document.querySelectorAll('.ingredient');
+            ingredients.forEach(ingredient => {
+                ingredient.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                });
+                
+                ingredient.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+```
